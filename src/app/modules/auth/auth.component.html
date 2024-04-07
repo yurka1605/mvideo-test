@@ -1,0 +1,30 @@
+<form class="login-form" [formGroup]="form" (ngSubmit)="auth()">
+  <h1>Login</h1>
+
+  <mat-form-field>
+    <mat-label>Login</mat-label>
+    <input type="text" matInput formControlName="login">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password">
+  </mat-form-field>
+
+  <mat-error *ngIf="timer$ | async as timer">
+    {{timer}} to try again
+  </mat-error>
+
+  <button
+    class="btn"
+    mat-flat-button
+    color="primary"
+    type="submit"
+    [disabled]="form.disabled || form.invalid"
+  >Send</button>
+
+  <ng-container *ngIf="userInfo$ | async as userInfo">
+    Your name is {{userInfo.username}}
+  </ng-container>
+  <mat-error *ngIf="error$ | async as error">{{ error }}</mat-error>
+</form>
